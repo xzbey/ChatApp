@@ -1,0 +1,35 @@
+# Qt + CMake build-артефакты
+build/
+*/build/
+*.build/
+*.build-*/
+Desktop_Qt_*_*-Debug/
+Desktop_Qt_*_*-Release/
+*.qmlls.build.ini
+.qtcsettings.cmake
+
+# Автогенерированные Qt-файлы
+moc_*
+qrc_*
+ui_*.h
+*.qmlc
+*.qmltypes
+rcc_*.cpp
+*.rcc/
+
+# Временные / сгенерированные файлы
+*.o
+*.obj
+*.a
+*.lib
+*.exp
+*.ilk
+*.pdb
+*.log
+*~
+
+# Qt Creator / Qt настройки
+*.user
+*.pro.user*
+.qmake.cache
+.qmake.stash
