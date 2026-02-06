@@ -1,3 +1,6 @@
+#ifndef AUTHPROTOCOL_H
+#define AUTHPROTOCOL_H
+
 #include <QString>
 #include <QJsonObject>
 
@@ -7,7 +10,7 @@ namespace AuthProtocol {
         Error = 0,
         Login = 1,
         Registration = 2,
-	None = 300
+        None = 300
     };
 
     struct Request {
@@ -62,3 +65,5 @@ namespace AuthProtocol {
         return response;
     }
 }
+
+#endif // AUTHPROTOCOL_H

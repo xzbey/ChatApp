@@ -1,0 +1,42 @@
+cmake_minimum_required(VERSION 3.19)
+project(chat_server LANGUAGES CXX)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Network)
+qt_standard_project_setup()
+qt_add_executable(chat_server
+    WIN32 MACOSX_BUNDLE
+    main.cpp
+    gui/MainWindow.cpp
+    gui/MainWindow.h
+    gui/MainWindow.ui
+    auth/AuthValidator.h auth/AuthValidator.cpp
+    chat/MessageRouter.h chat/MessageRouter.cpp
+    server/Server.h server/Server.cpp
+    session/ClientSession.h session/ClientSession.cpp
+)
+target_link_libraries(chat_server
+    PRIVATE
+        Qt::Core
+        Qt::Widgets
+        Qt::Network
+)
+target_include_directories(chat_server
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/server
+        ${CMAKE_CURRENT_SOURCE_DIR}/auth
+        ${CMAKE_CURRENT_SOURCE_DIR}/gui
+        ${CMAKE_CURRENT_SOURCE_DIR}/session
+        ${CMAKE_CURRENT_SOURCE_DIR}/chat
+        ${CMAKE_SOURCE_DIR}/common
+)
+include(GNUInstallDirs)
+install(TARGETS chat_server
+    BUNDLE  DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+qt_generate_deploy_app_script(
+    TARGET chat_server
+    OUTPUT_SCRIPT deploy_script
+    NO_UNSUPPORTED_PLATFORM_ERROR
+)
+install(SCRIPT ${deploy_script})
