@@ -9,6 +9,11 @@ ClientSession::ClientSession(QTcpSocket* socket, UserStorage* userStorage, QObje
     authController = new AuthController(userStorage, this);
 }
 
+ClientSession::~ClientSession() {
+    if (socket)
+        socket->deleteLater();
+}
+
 void ClientSession::onReadyRead() {
     QByteArray data = socket->readAll();
 

@@ -9,9 +9,6 @@
 class Server: public QTcpServer
 {
     Q_OBJECT
-signals:
-    void userListChanged();
-
 public:
     Server(QObject* parent = nullptr);
 
@@ -19,6 +16,9 @@ public:
 
     QStringList getOnlineUsers() const;
     UserStorage* getUserStorage() const;
+
+signals:
+    void userListChanged();
 
 public slots:
     void incomingConnection(qintptr socketDescriptor);

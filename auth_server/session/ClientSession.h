@@ -17,6 +17,7 @@ signals:
 
 public:
     ClientSession(QTcpSocket* socket, UserStorage* userStorage, QObject *parent = nullptr);
+    ~ClientSession();
 
     QString getLogin() const;
 
