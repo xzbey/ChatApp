@@ -22,6 +22,16 @@ void Client::connectToServer(const QHostAddress& hostAddress, const quint16& por
     socket->connectToHost(hostAddress, port);
 }
 
+void Client::disconnectFromServer() {
+    if (!isConnected()) {
+        Utils::log("Already disconnected");
+        return;
+    }
+
+    Utils::log("Disconnecting from server");
+    socket->disconnectFromHost();
+}
+
 void Client::sendRequest(const QJsonObject& request) {
     if (!isConnected()) {
         emit error0ccurred("Not connected to server");

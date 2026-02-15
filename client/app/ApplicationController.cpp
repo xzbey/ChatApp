@@ -5,6 +5,7 @@ ApplicationController::ApplicationController(QObject* parent)
 {
     client = new Client(this);
     authService = new AuthService(client, this);
+    chatService = new ChatService(client, this);
 
     connect(client, &Client::connected, this, &ApplicationController::onConnected);
     connect(client, &Client::disconnected, this, &ApplicationController::onDisconnect);
@@ -15,6 +16,12 @@ ApplicationController::ApplicationController(QObject* parent)
     connect(authService, &AuthService::registrationSuccess, this, &ApplicationController::onRegistrationSuccess);
     connect(authService, &AuthService::registrationFailed, this, &ApplicationController::onRegistrationFailed);
 
+    connect(chatService, &ChatService::chatConnected, this, &ApplicationController::onChatConnected);
+    connect(chatService, &ChatService::chatConnectionFailed, this, &ApplicationController::onChatConnectionFailed);
+    connect(chatService, &ChatService::messageReceived, this, &ApplicationController::messageReceived);
+    connect(chatService, &ChatService::broadcastReceived, this, &ApplicationController::broadcastReceived);
+    connect(chatService, &ChatService::userListReceived, this, &ApplicationController::userListReceived);
+
     //connectToServer(QHostAddress::LocalHost, 50000);
 }
 
@@ -24,6 +31,8 @@ Q_INVOKABLE void ApplicationController::connectToServer(const QString& hostAddre
 }
 
 Q_INVOKABLE void ApplicationController::login(const QString& login, const QString& password) {
+    myLogin = login;
+
     if (!client->isConnected()) {
         connectToServer(serverData.first.toString(), serverData.second);
 
@@ -54,6 +63,19 @@ Q_INVOKABLE void ApplicationController::registration(const QString& login, const
     setStatusMsg("Registration...");
     authService->registration(login, password);
 }
+
+Q_INVOKABLE void ApplicationController::sendMessage(const QString& to, const QString& msg) {
+    chatService->sendMessage(to, msg);
+}
+
+Q_INVOKABLE void ApplicationController::sendBroadcast(const QString& msg) {
+    chatService->sendBroadcast(msg);
+}
+
+Q_INVOKABLE void ApplicationController::userListRequest() {
+    chatService->userListRequest();
+}
+
 
 QString ApplicationController::getStatusMsg() const {
     return statusMsg;
@@ -95,6 +117,16 @@ void ApplicationController::onRegistrationFailed(const QString& error) {
 void ApplicationController::onError(const QString& error) {
     setStatusMsg("Error: " + error);
     emit isConnectedChanged();
+}
+
+void ApplicationController::onChatConnected() {
+    setStatusMsg("Connected to chat");
+    Utils::log("Successful connect to chat server");
+    emit authSuccess();
+}
+
+void ApplicationController::onChatConnectionFailed(const QString& error) {
+    setStatusMsg("Chat connection failed + " + error);
 }
 
 

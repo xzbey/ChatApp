@@ -40,6 +40,7 @@ namespace ChatProtocol {
 
     inline QJsonObject makeHelloMessage(const HelloMessage& msg) {
         QJsonObject obj;
+        obj["type"] = static_cast<unsigned short>(MessageType::Hello);
         obj["login"] = msg.login;
         obj["token"] = msg.token;
 

@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "AuthService.h"
+#include "ChatService.h"
 
 class ApplicationController: public QObject
 {
@@ -17,6 +18,10 @@ public:
     Q_INVOKABLE void login(const QString& login, const QString& password);
     Q_INVOKABLE void registration(const QString& login, const QString& password);
 
+    Q_INVOKABLE void sendMessage(const QString& to, const QString& msg);
+    Q_INVOKABLE void sendBroadcast(const QString& msg);
+    Q_INVOKABLE void userListRequest();
+
     QString getStatusMsg() const;
     bool isConnected() const;
 
@@ -25,6 +30,11 @@ signals:
     void isConnectedChanged();
     void authSuccess();
     void registerSuccess();
+
+    void chatConnected();
+    void messageReceived();
+    void broadcastReceived();
+    void userListReceived();
 
 private slots:
     void onConnected();
@@ -35,10 +45,16 @@ private slots:
     void onRegistrationFailed(const QString& error);
     void onError(const QString& error);
 
+    void onChatConnected();
+    void onChatConnectionFailed(const QString& error);
+
 private:
     Client* client;
     AuthService* authService;
+    ChatService* chatService;
+
     QString statusMsg;
+    QString myLogin;
 
     QPair<QHostAddress, quint16> serverData = {QHostAddress::LocalHost, 50000};
 
