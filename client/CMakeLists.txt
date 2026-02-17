@@ -29,6 +29,8 @@ qt_add_qml_module(appclient
         chat/ChatService.cpp
         network/Client.h
         network/Client.cpp
+        SOURCES chat/MessageModel.h chat/MessageModel.cpp
+        SOURCES chat/ChatListModel.h chat/ChatListModel.cpp
 )
 
 set_target_properties(appclient PROPERTIES

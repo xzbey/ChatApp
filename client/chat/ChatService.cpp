@@ -23,6 +23,7 @@ void ChatService::connectToChatServer(const QString& login, const QString& hostA
         }, Qt::SingleShotConnection);
 
         Utils::log("Disconnecting from auth server");
+        client->disconnectFromServer();
         return;
     }
 

@@ -5,12 +5,14 @@
 
 #include "AuthService.h"
 #include "ChatService.h"
+#include "ChatListModel.h"
 
 class ApplicationController: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString statusMsg READ getStatusMsg NOTIFY statusMsgChanged)
     Q_PROPERTY(bool isConnected READ isConnected NOTIFY isConnectedChanged)
+    Q_PROPERTY(ChatListModel* chatListModel READ getChatListModel CONSTANT)
 public:
     ApplicationController(QObject* parent = nullptr);
 
@@ -24,6 +26,7 @@ public:
 
     QString getStatusMsg() const;
     bool isConnected() const;
+    ChatListModel* getChatListModel() const;
 
 signals:
     void statusMsgChanged();
@@ -32,9 +35,9 @@ signals:
     void registerSuccess();
 
     void chatConnected();
-    void messageReceived();
-    void broadcastReceived();
-    void userListReceived();
+    void messageReceived(const QString& from, const QString& msg);
+    void broadcastReceived(const QString& from, const QString& msg);
+    void userListReceived(const QStringList& users);
 
 private slots:
     void onConnected();
@@ -48,15 +51,20 @@ private slots:
     void onChatConnected();
     void onChatConnectionFailed(const QString& error);
 
+    void onMessageReceived(const QString& from, const QString& msg);
+    void onBroadcastReceived(const QString& from, const QString& msg);
+
 private:
     Client* client;
     AuthService* authService;
     ChatService* chatService;
+    ChatListModel* chatListModel;
 
     QString statusMsg;
     QString myLogin;
 
-    QPair<QHostAddress, quint16> serverData = {QHostAddress::LocalHost, 50000};
+    QPair<QHostAddress, quint16> authServerData = {QHostAddress::LocalHost, 50000};
+    QPair<QHostAddress, quint16> chatServerData = {QHostAddress::LocalHost, 50001};
 
     void setStatusMsg(const QString& msg);
 };
