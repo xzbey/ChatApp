@@ -17,11 +17,25 @@ Window {
 
         function onAuthSuccess() {
             let component = Qt.createComponent("Chat.qml");
+
             if (component.status === Component.Ready) {
                 let chat = component.createObject(null);
                 chat.show();
                 authWindow.close();
-            }
+
+            } else if (component.status === Component.Error)
+                console.log("Ошибка загрузки Chat.qml: " + component.errorString());
+
+            else
+                component.statusChanged.connect(function() {
+                    if (component.status === Component.Ready) {
+                        let chat = component.createObject(null);
+                        chat.show();
+                        authWindow.close();
+
+                    } else if (component.status === Component.Error)
+                        console.log("Ошибка: " + component.errorString());
+                });
         }
 
         function onRegisterSuccess() {

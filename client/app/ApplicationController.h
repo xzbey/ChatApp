@@ -35,6 +35,8 @@ signals:
     void registerSuccess();
 
     void chatConnected();
+    void chatDisconnected();
+
     void messageReceived(const QString& from, const QString& msg);
     void broadcastReceived(const QString& from, const QString& msg);
     void userListReceived(const QStringList& users);
@@ -62,6 +64,8 @@ private:
 
     QString statusMsg;
     QString myLogin;
+
+    bool inChat = false;
 
     QPair<QHostAddress, quint16> authServerData = {QHostAddress::LocalHost, 50000};
     QPair<QHostAddress, quint16> chatServerData = {QHostAddress::LocalHost, 50001};

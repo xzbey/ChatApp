@@ -16,6 +16,12 @@ bool Server::start(const quint16& port) {
     }
 }
 
+void Server::close() {
+    for (ClientSession* session: activeSessions)
+        session->disconnectClient();
+    QTcpServer::close();
+}
+
 QStringList Server::getOnlineUsers() const {
     QSet<QString> uniqueUsers;
 
@@ -106,6 +112,7 @@ void Server::sendUserListTo(const QString& login) {
     loginToSession[login]->sendMsg(ChatProtocol::makeUserListResponse(users));
     Utils::log("UserList with " + QString::number(users.size()) + " users sended");
 }
+
 
 
 

@@ -10,8 +10,16 @@ ClientSession::ClientSession(QTcpSocket* socket, UserStorage* userStorage, QObje
 }
 
 ClientSession::~ClientSession() {
-    if (socket)
-        socket->deleteLater();
+    if (socket) {
+        if (!pendingDelete) {
+            pendingDelete = true;
+            Utils::log("Socket deleting. Penging delete: False->True");
+            socket->deleteLater();
+        }
+        else
+            Utils::log("Object already in delete queue. Penging delete = True");
+    } else
+        Utils::log("Failed socket");
 }
 
 void ClientSession::onReadyRead() {
@@ -57,8 +65,13 @@ void ClientSession::onReadyRead() {
 
 void ClientSession::onDisconnected() {
     Utils::log("Client disconnected");
-    socket->deleteLater();
-    deleteLater();
+    if (!pendingDelete) {
+        pendingDelete = true;
+        Utils::log("Socket deleting. Penging delete: False->True");
+        socket->deleteLater();
+        deleteLater();
+    } else
+        Utils::log("Object already in delete queue. Penging delete = True");
 }
 
 void ClientSession::sendResponse(const AuthProtocol::Response& response) {
@@ -70,4 +83,9 @@ void ClientSession::sendResponse(const AuthProtocol::Response& response) {
 
 QString ClientSession::getLogin() const {
     return login;
+}
+
+void ClientSession::disconnectClient() {
+    if (socket and socket->state() == QAbstractSocket::ConnectedState)
+        socket->disconnectFromHost();
 }

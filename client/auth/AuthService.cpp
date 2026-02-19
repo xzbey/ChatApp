@@ -9,7 +9,7 @@ AuthService::AuthService(Client* client, QObject* parent)
 
 void AuthService::login(const QString& login, const QString& password) {
     if (!client->isConnected()) {
-        emit loginFailed("Not connected to server");
+        emit loginFailed("Not connected to auth server");
         return;
     }
 
@@ -22,7 +22,7 @@ void AuthService::login(const QString& login, const QString& password) {
 
 void AuthService::registration(const QString& login, const QString& password) {
     if (!client->isConnected()) {
-        emit loginFailed("Not connected to server");
+        emit loginFailed("Not connected to auth server");
         return;
     }
 

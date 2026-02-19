@@ -13,6 +13,7 @@ public:
     Server(QObject* parent = nullptr);
 
     bool start(const quint16& port);
+    void close();
 
     QStringList getOnlineUsers() const;
     UserStorage* getUserStorage() const;

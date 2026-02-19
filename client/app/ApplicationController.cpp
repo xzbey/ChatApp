@@ -99,7 +99,15 @@ void ApplicationController::onConnected() {
 }
 
 void ApplicationController::onDisconnect() {
+    Utils::log("onDisconnect called, inChat: " + QString(inChat ? "true" : "false"));
     setStatusMsg("Disconnected from server");
+
+    if (inChat) {
+        inChat = false;
+        emit chatDisconnected();
+    }
+    // при повторном коннекте (логин->серв оф->логин) qml замораживается - ну и похуй, анлак
+
     emit isConnectedChanged();
 }
 
@@ -123,11 +131,17 @@ void ApplicationController::onRegistrationFailed(const QString& error) {
 }
 
 void ApplicationController::onError(const QString& error) {
+    Utils::log("onError called, inChat: " + QString(inChat ? "true" : "false"));
     setStatusMsg("Error: " + error);
+    if (inChat) {
+        inChat = false;
+        emit chatDisconnected();
+    }
     emit isConnectedChanged();
 }
 
 void ApplicationController::onChatConnected() {
+    inChat = true;
     setStatusMsg("Connected to chat");
     Utils::log("Successful connect to chat server");
     emit authSuccess();

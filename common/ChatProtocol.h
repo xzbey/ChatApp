@@ -88,6 +88,7 @@ namespace ChatProtocol {
 
     inline QJsonObject makeSystemMessage(const SystemMessage& msg) {
         QJsonObject obj;
+        obj["type"] = static_cast<unsigned short>(MessageType::SystemMessage);
         obj["success"] = msg.success;
         obj["msg"] = msg.msg;
 

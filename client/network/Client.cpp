@@ -18,7 +18,7 @@ void Client::connectToServer(const QHostAddress& hostAddress, const quint16& por
         return;
     }
 
-    Utils::log("Connecting to " + hostAddress.toString() + ":" + port);
+    Utils::log("Connecting to " + hostAddress.toString() + ":" + QString::number(port));
     socket->connectToHost(hostAddress, port);
 }
 

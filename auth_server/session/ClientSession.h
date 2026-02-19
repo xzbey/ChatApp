@@ -21,6 +21,8 @@ public:
 
     QString getLogin() const;
 
+    void disconnectClient();
+
 private slots:
     void onReadyRead();
     void onDisconnected();
@@ -30,6 +32,8 @@ private:
     AuthController* authController;
 
     QString login;
+
+    bool pendingDelete = false;
 
     void sendResponse(const AuthProtocol::Response& response);
 };

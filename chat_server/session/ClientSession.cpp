@@ -17,8 +17,16 @@ ClientSession::ClientSession(QTcpSocket* socket, AuthValidator* authValidator, Q
 }
 
 ClientSession::~ClientSession() {
-    if (socket)
-        socket->deleteLater();
+    if (socket) {
+        if (!pendingDelete) {
+            pendingDelete = true;
+            Utils::log("Socket deleting. Penging delete: False->True");
+            socket->deleteLater();
+        }
+        else
+            Utils::log("Object already in delete queue. Penging delete = True");
+    } else
+        Utils::log("Failed socket");
 }
 
 QString ClientSession::getLogin() const {
@@ -32,7 +40,7 @@ bool ClientSession::isAuthenticated() const {
 QString ClientSession::getClientAddress() const {
     if (!socket)
         return "";
-    return socket->peerAddress().toString() + ":" + socket->peerPort();
+    return socket->peerAddress().toString() + ":" + QString::number(socket->peerPort());
 }
 
 void ClientSession::sendMsg(const QJsonObject& msg) const {
@@ -79,8 +87,15 @@ void ClientSession::onDisconnected() {
     Utils::log("Client disconnected: " + login + " | " + getClientAddress());
 
     emit clientDisconnected(login);
-    socket->deleteLater();
-    deleteLater();
+
+    Utils::log("Client disconnected");
+    if (!pendingDelete) {
+        pendingDelete = true;
+        Utils::log("Socket deleting. Penging delete: False->True");
+        socket->deleteLater();
+        deleteLater();
+    } else
+        Utils::log("Object already in delete queue. Penging delete = True");
 }
 
 void ClientSession::onSocketError() {
@@ -128,3 +143,7 @@ void ClientSession::sendSystemMessage(bool success, const QString& msg) {
     sendMsg(obj);
 }
 
+void ClientSession::disconnectClient() {
+    if (socket and socket->state() == QAbstractSocket::ConnectedState)
+        socket->disconnectFromHost();
+}

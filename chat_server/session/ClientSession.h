@@ -20,6 +20,8 @@ public:
     QString getClientAddress() const;
 
     void sendMsg(const QJsonObject& msg) const;
+
+    void disconnectClient();
 signals:
     void clientAuthenticated(const QString& login);
     void clientDisconnected(const QString& login);
@@ -40,6 +42,8 @@ private:
 
     QString login;
     bool authenticated;
+
+    bool pendingDelete = false;
 
     void handleHelloMessage(const QJsonObject& msg);
     void handleChatMessage(const QJsonObject& msg);

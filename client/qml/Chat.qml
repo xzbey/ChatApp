@@ -9,15 +9,29 @@ Window {
     visible: false
     title: qsTr("Чат")
 
-    // Текущая модель сообщений (по умолчанию broadcast)
+    //Текущая модель сообщений (по умолчанию broadcast)
     property var currentMessageModel: appController.chatListModel.getMessageModel("broadcast")
     property string currentChatId: "broadcast"
+    property bool chatStarted: false
+
+    Connections {
+        target: appController
+        function onChatDisconnected() {
+            console.log("onChatDisconnected called");
+            let component = Qt.createComponent("Auth.qml");
+            if (component.status === Component.Ready) {
+                let auth = component.createObject(null);
+                auth.show();
+                Qt.callLater(function() { chatWindow.destroy(); });
+            }
+        }
+    }
 
     RowLayout {
         anchors.fill: parent
         spacing: 1
 
-        // ===== ЛЕВАЯ ПАНЕЛЬ - список чатов =====
+        //Левая панель со списком чатов
         Rectangle {
             color: "gray"
             Layout.fillHeight: true
@@ -69,14 +83,13 @@ Window {
                     Layout.preferredHeight: 45
                     text: "+ Новый чат"
                     onClicked: {
-                        // Пока заглушка — потом откроешь диалог выбора
-                        // appController.chatListModel.addChat("private_Вася", "Вася")
+                        //appController.chatListModel.addChat("private_Челик", "Челик")
                     }
                 }
             }
         }
 
-        // ===== ПРАВАЯ ПАНЕЛЬ - сообщения =====
+        //Правая панель с чатом
         Rectangle {
             color: "green"
             Layout.fillWidth: true
@@ -86,7 +99,7 @@ Window {
                 anchors.fill: parent
                 spacing: 0
 
-                // Заголовок текущего чата
+                //Заголовок текущего чата
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.preferredHeight: 45
@@ -105,7 +118,7 @@ Window {
                     }
                 }
 
-                // Список сообщений
+                //Список сообщений
                 ListView {
                     id: messageListView
                     Layout.fillWidth: true
@@ -149,7 +162,7 @@ Window {
                     onCountChanged: positionViewAtEnd()
                 }
 
-                // Поле ввода
+                //Поле ввода
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.preferredHeight: 55
@@ -178,7 +191,6 @@ Window {
                                 if (chatWindow.currentChatId === "broadcast") {
                                     appController.sendBroadcast(text)
                                 } else {
-                                    // убираем "private_" из chatId чтобы получить логин
                                     let to = chatWindow.currentChatId.replace("private_", "")
                                     appController.sendMessage(to, text)
                                 }

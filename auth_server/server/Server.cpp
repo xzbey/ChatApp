@@ -16,6 +16,12 @@ bool Server::start(const quint16& port) {
     }
 }
 
+void Server::close() {
+    for (ClientSession* session: activeSessions)
+        session->disconnectClient();
+    QTcpServer::close();
+}
+
 void Server::incomingConnection(qintptr socketDescriptor) {
     QTcpSocket* socket = new QTcpSocket(this);
     socket->setSocketDescriptor(socketDescriptor);
