@@ -1,0 +1,8 @@
+module client
+typeinfo appclient.qmltypes
+prefer :/client/
+Auth 1.0 qml/Auth.qml
+Chat 1.0 qml/Chat.qml
+Utils 1.0 common/Utils.js
+depends QtQuick
+

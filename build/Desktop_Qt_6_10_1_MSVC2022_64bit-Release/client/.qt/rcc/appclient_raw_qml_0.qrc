@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="/client/">
+    <file alias="qml/Auth.qml">D:/qtprojects/ChatApp/client/qml/Auth.qml</file>
+    <file alias="qml/Chat.qml">D:/qtprojects/ChatApp/client/qml/Chat.qml</file>
+    <file alias="common/Utils.js">D:/qtprojects/ChatApp/client/common/Utils.js</file>
+  </qresource>
+</RCC>
+

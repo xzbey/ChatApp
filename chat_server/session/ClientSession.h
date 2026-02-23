@@ -34,6 +34,7 @@ private slots:
     void onReadyRead();
     void onDisconnected();
     void onSocketError();
+    void onValidationResult(const QString& login, const QString& token, bool valid);
 
 private:
     QTcpSocket* socket;

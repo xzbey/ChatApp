@@ -15,6 +15,7 @@ qt_add_executable(auth_server
     auth/AuthController.h auth/AuthController.cpp
     session/ClientSession.h session/ClientSession.cpp
     db/UserStorage.cpp db/UserStorage.h
+    validation/ValidationServer.h validation/ValidationServer.cpp
 )
 
 target_link_libraries(auth_server
@@ -31,6 +32,7 @@ target_include_directories(auth_server
         ${CMAKE_CURRENT_SOURCE_DIR}/gui
         ${CMAKE_CURRENT_SOURCE_DIR}/session
         ${CMAKE_CURRENT_SOURCE_DIR}/db
+        ${CMAKE_CURRENT_SOURCE_DIR}/validation
         ${CMAKE_SOURCE_DIR}/common
 )
 

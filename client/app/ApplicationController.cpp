@@ -93,6 +93,10 @@ ChatListModel* ApplicationController::getChatListModel() const {
     return chatListModel;
 }
 
+QString ApplicationController::getMyLogin() const {
+    return myLogin;
+}
+
 void ApplicationController::onConnected() {
     setStatusMsg("Connected to server");
     emit isConnectedChanged();

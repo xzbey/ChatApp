@@ -4,11 +4,13 @@ Server::Server(QObject* parent)
     :QTcpServer(parent)
 {
     userStorage = new UserStorage(this);
+    validationServer = new ValidationServer(userStorage, this);
 }
 
 bool Server::start(const quint16& port) {
     if (port != 0 and this->listen(QHostAddress::Any, port)) {
         Utils::log("AuthServer started / port " + QString::number(port));
+        validationServer->start(50002);
         return true;
     } else {
         Utils::log("Error in start AuthServer / port " + QString::number(port));
@@ -19,6 +21,7 @@ bool Server::start(const quint16& port) {
 void Server::close() {
     for (ClientSession* session: activeSessions)
         session->disconnectClient();
+    validationServer->close();
     QTcpServer::close();
 }
 

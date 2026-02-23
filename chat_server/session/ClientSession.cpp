@@ -102,6 +102,23 @@ void ClientSession::onSocketError() {
     Utils::log("Socket error: " + getClientAddress() + " | Error: " + socket->errorString());
 }
 
+void ClientSession::onValidationResult(const QString& login, const QString& token, bool valid) {
+    if (!valid) {
+        Utils::log("Client is invalid: " + login + " | Token = " + token);
+        sendSystemMessage(false, "Client is invalid: " + login + " | Token = " + token);
+        socket->disconnectFromHost();
+        return;
+    }
+
+    this->login = login;
+    authenticated = true;
+
+    Utils::log("Successful client auth: " + login);
+    sendSystemMessage(true, "Successful auth");
+
+    emit clientAuthenticated(login);
+}
+
 void ClientSession::handleHelloMessage(const QJsonObject& msg) {
     ChatProtocol::MessageType typeMsg = ChatProtocol::getMessageType(msg);
 
@@ -116,20 +133,9 @@ void ClientSession::handleHelloMessage(const QJsonObject& msg) {
 
     Utils::log("Hello msg from client: " + helloMsg.login + " | Token = " + helloMsg.token);
 
-    if (!authValidator->validateClient(helloMsg.login, helloMsg.token)) {
-        Utils::log("Client is invalid: " + helloMsg.login + " | Token = " + helloMsg.token);
-        sendSystemMessage(false, "Client is invalid: " + helloMsg.login + " | Token = " + helloMsg.token);
-        socket->disconnectFromHost();
-        return;
-    }
+    connect(authValidator, &AuthValidator::validationResult, this, &ClientSession::onValidationResult, Qt::SingleShotConnection);
 
-    login = helloMsg.login;
-    authenticated = true;
-
-    Utils::log("Successful client auth: " + login);
-    sendSystemMessage(true, "Successful auth");
-
-    emit clientAuthenticated(login);
+    authValidator->validateClient(helloMsg.login, helloMsg.token);
 }
 
 void ClientSession::handleChatMessage(const QJsonObject& msg) {

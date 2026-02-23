@@ -110,7 +110,7 @@ namespace ChatProtocol {
 
     inline TextMessage parseTextMessage(const QJsonObject& obj) {
         if (obj.contains("from") and obj.contains("to") and obj.contains("msg"))
-            return {obj["from"].toString(), obj["to"].toString(), obj["msg"].toString()};
+            return {obj["from"].toString(), obj["msg"].toString(), obj["to"].toString()};
         return {"-", "-", "-"};
     }
 

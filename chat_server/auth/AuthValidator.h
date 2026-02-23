@@ -1,11 +1,11 @@
 #ifndef AUTHVALIDATOR_H
 #define AUTHVALIDATOR_H
 
-#include <QObject>
-#include <QSet>
-#include <QFile>
+#include <QTcpSocket>
+#include <QJsonDocument>
 
 #include "Utils.h"
+#include "ValidationProtocol.h"
 
 class AuthValidator: public QObject
 {
@@ -13,16 +13,17 @@ class AuthValidator: public QObject
 public:
     AuthValidator(QObject* parent = nullptr);
 
-    bool validateClient(const QString& login, const QString& token);
+    void validateClient(const QString& login, const QString& token);
 
-    bool validateToken(const QString& token);
+signals:
+    void validationResult(const QString& login, const QString& token, bool valid);
 
-    void loadRegisterUsers(const QString& path);
+private slots:
+    void onReadyRead(QTcpSocket* socket, const QString& login, const QString& token);
+    void onError(QTcpSocket* socket, const QString& login, const QString& token);
 
 private:
-    QSet<QString> registerUsers; //потом чет типа QMap<QString, QString> - логин и токен
-
-    bool userExists(const QString& login) const;
+    quint16 port = 50002;
 };
 
 #endif // AUTHVALIDATOR_H

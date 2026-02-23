@@ -5,6 +5,7 @@
 #include <QTcpServer>
 
 #include "ClientSession.h"
+#include "ValidationServer.h"
 
 class Server: public QTcpServer
 {
@@ -27,6 +28,7 @@ public slots:
 private:
     UserStorage* userStorage;
     QList<ClientSession*> activeSessions;
+    ValidationServer* validationServer;
 };
 
 #endif // SERVER_H

@@ -1,0 +1,14 @@
+-rootPath
+D:/qtprojects/ChatApp/client
+-cmake-output
+-output-file
+D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/client/.qt/qml_imports/appclient_conf.cmake
+-importPath
+D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/client/client
+-importPath
+D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/client
+-importPath
+E:/Qt/6.10.1/msvc2022_64/qml
+-qrcFiles
+D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/client/.qt/rcc/qmake_client.qrc
+D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/client/.qt/rcc/appclient_raw_qml_0.qrc

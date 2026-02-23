@@ -13,6 +13,8 @@ class ApplicationController: public QObject
     Q_PROPERTY(QString statusMsg READ getStatusMsg NOTIFY statusMsgChanged)
     Q_PROPERTY(bool isConnected READ isConnected NOTIFY isConnectedChanged)
     Q_PROPERTY(ChatListModel* chatListModel READ getChatListModel CONSTANT)
+    Q_PROPERTY(QString myLogin READ getMyLogin CONSTANT)
+
 public:
     ApplicationController(QObject* parent = nullptr);
 
@@ -27,6 +29,7 @@ public:
     QString getStatusMsg() const;
     bool isConnected() const;
     ChatListModel* getChatListModel() const;
+    QString getMyLogin() const;
 
 signals:
     void statusMsgChanged();
