@@ -1,0 +1,7 @@
+common_autogen/timestamp: \
+	D:/qtprojects/ChatApp/common/AuthProtocol.h \
+	D:/qtprojects/ChatApp/common/CMakeLists.txt \
+	D:/qtprojects/ChatApp/common/ChatProtocol.h \
+	D:/qtprojects/ChatApp/common/Utils.h \
+	D:/qtprojects/ChatApp/common/ValidationProtocol.h \
+	E:/Qt/Tools/CMake_64/bin/cmake.exe
