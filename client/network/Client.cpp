@@ -18,8 +18,18 @@ void Client::connectToServer(const QHostAddress& hostAddress, const quint16& por
         return;
     }
 
-    Utils::log("Connecting to " + hostAddress.toString() + ":" + port);
+    Utils::log("Connecting to " + hostAddress.toString() + ":" + QString::number(port));
     socket->connectToHost(hostAddress, port);
+}
+
+void Client::disconnectFromServer() {
+    if (!isConnected()) {
+        Utils::log("Already disconnected");
+        return;
+    }
+
+    Utils::log("Disconnecting from server");
+    socket->disconnectFromHost();
 }
 
 void Client::sendRequest(const QJsonObject& request) {

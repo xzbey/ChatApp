@@ -2,12 +2,53 @@
 #define CLIENTSESSION_H
 
 #include <QObject>
+#include <QTcpSocket>
+
+#include "AuthValidator.h"
+#include "MessageRouter.h"
+#include "ChatProtocol.h"
 
 class ClientSession: public QObject
 {
     Q_OBJECT
 public:
-    ClientSession(QObject* parent = nullptr);
+    ClientSession(QTcpSocket* socket, AuthValidator* authValidator, QObject* parent = nullptr);
+    ~ClientSession();
+
+    QString getLogin() const;
+    bool isAuthenticated() const;
+    QString getClientAddress() const;
+
+    void sendMsg(const QJsonObject& msg) const;
+
+    void disconnectClient();
+signals:
+    void clientAuthenticated(const QString& login);
+    void clientDisconnected(const QString& login);
+
+    void messageForUser(const QString& receiver, const QJsonObject& msg);
+    void broadcastMessage(const QString& exceptMyLogin, const QJsonObject& msg);
+    void userListRequest(const QString& login);
+
+private slots:
+    void onReadyRead();
+    void onDisconnected();
+    void onSocketError();
+    void onValidationResult(const QString& login, const QString& token, bool valid);
+
+private:
+    QTcpSocket* socket;
+    AuthValidator* authValidator;
+    MessageRouter* msgRouter;
+
+    QString login;
+    bool authenticated;
+
+    bool pendingDelete = false;
+
+    void handleHelloMessage(const QJsonObject& msg);
+    void handleChatMessage(const QJsonObject& msg);
+    void sendSystemMessage(bool success, const QString& msg);
 };
 
 #endif // CLIENTSESSION_H

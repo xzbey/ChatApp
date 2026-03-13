@@ -1,4 +1,5 @@
-add_library(common STATIC)
+add_library(common STATIC
+    ValidationProtocol.h)
 
 target_sources(common
     PRIVATE

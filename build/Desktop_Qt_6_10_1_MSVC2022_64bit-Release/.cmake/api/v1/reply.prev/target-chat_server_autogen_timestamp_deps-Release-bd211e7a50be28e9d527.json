@@ -1,0 +1,31 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"chat_server/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"folder" : 
+	{
+		"name" : "QtInternalTargets"
+	},
+	"id" : "chat_server_autogen_timestamp_deps::@f2af9827e3657385bc68",
+	"isGeneratorProvided" : true,
+	"name" : "chat_server_autogen_timestamp_deps",
+	"paths" : 
+	{
+		"build" : "chat_server",
+		"source" : "chat_server"
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}

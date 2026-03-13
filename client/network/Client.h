@@ -16,6 +16,7 @@ public:
     Client(QObject* parent = nullptr);
 
     void connectToServer(const QHostAddress& hostAddress, const quint16& port);
+    void disconnectFromServer();
 
     void sendRequest(const QJsonObject& request);
 

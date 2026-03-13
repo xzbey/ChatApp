@@ -17,8 +17,11 @@ signals:
 
 public:
     ClientSession(QTcpSocket* socket, UserStorage* userStorage, QObject *parent = nullptr);
+    ~ClientSession();
 
     QString getLogin() const;
+
+    void disconnectClient();
 
 private slots:
     void onReadyRead();
@@ -29,6 +32,8 @@ private:
     AuthController* authController;
 
     QString login;
+
+    bool pendingDelete = false;
 
     void sendResponse(const AuthProtocol::Response& response);
 };

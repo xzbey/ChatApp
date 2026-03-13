@@ -1,0 +1,98 @@
+{
+	"AUTOGEN_COMMAND_LINE_LENGTH_MAX" : 32000,
+	"BUILD_DIR" : "D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/common/common_autogen",
+	"CMAKE_BINARY_DIR" : "D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release",
+	"CMAKE_CURRENT_BINARY_DIR" : "D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/common",
+	"CMAKE_CURRENT_SOURCE_DIR" : "D:/qtprojects/ChatApp/common",
+	"CMAKE_EXECUTABLE" : "E:/Qt/Tools/CMake_64/bin/cmake.exe",
+	"CMAKE_LIST_FILES" : [ "D:/qtprojects/ChatApp/common/CMakeLists.txt" ],
+	"CMAKE_SOURCE_DIR" : "D:/qtprojects/ChatApp",
+	"CROSS_CONFIG" : false,
+	"DEP_FILE" : "D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/common/common_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "common_autogen/timestamp",
+	"HEADERS" : 
+	[
+		[
+			"D:/qtprojects/ChatApp/common/AuthProtocol.h",
+			"MU",
+			"EWIEGA46WW/moc_AuthProtocol.cpp",
+			null
+		],
+		[
+			"D:/qtprojects/ChatApp/common/ChatProtocol.h",
+			"MU",
+			"EWIEGA46WW/moc_ChatProtocol.cpp",
+			null
+		],
+		[
+			"D:/qtprojects/ChatApp/common/Utils.h",
+			"MU",
+			"EWIEGA46WW/moc_Utils.cpp",
+			null
+		],
+		[
+			"D:/qtprojects/ChatApp/common/ValidationProtocol.h",
+			"MU",
+			"EWIEGA46WW/moc_ValidationProtocol.cpp",
+			null
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/common/common_autogen/include",
+	"MOC_COMPILATION_FILE" : "D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/common/common_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"QT_CORE_LIB",
+		"QT_NO_DEBUG",
+		"UNICODE",
+		"WIN32",
+		"WIN64",
+		"_ENABLE_EXTENDED_ALIGNED_STORAGE",
+		"_UNICODE",
+		"_WIN64"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"D:/qtprojects/ChatApp/common",
+		"E:/Qt/6.10.1/msvc2022_64/include/QtCore",
+		"E:/Qt/6.10.1/msvc2022_64/include",
+		"E:/Qt/6.10.1/msvc2022_64/mkspecs/win32-msvc"
+	],
+	"MOC_MACRO_NAMES" : 
+	[
+		"Q_OBJECT",
+		"Q_GADGET",
+		"Q_NAMESPACE",
+		"Q_NAMESPACE_EXPORT",
+		"Q_GADGET_EXPORT",
+		"Q_ENUM_NS"
+	],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : [],
+	"MOC_PREDEFS_FILE" : "",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 6,
+	"PARSE_CACHE_FILE" : "D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/common/CMakeFiles/common_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "E:/Qt/6.10.1/msvc2022_64/bin/moc.exe",
+	"QT_UIC_EXECUTABLE" : "E:/Qt/6.10.1/msvc2022_64/bin/uic.exe",
+	"QT_VERSION_MAJOR" : 6,
+	"QT_VERSION_MINOR" : 10,
+	"SETTINGS_FILE" : "D:/qtprojects/ChatApp/build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/common/CMakeFiles/common_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : [],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"USE_BETTER_GRAPH" : true,
+	"VERBOSITY" : 0
+}

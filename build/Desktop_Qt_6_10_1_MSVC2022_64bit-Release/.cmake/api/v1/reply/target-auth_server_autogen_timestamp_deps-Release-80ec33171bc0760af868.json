@@ -1,0 +1,31 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"auth_server/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"folder" : 
+	{
+		"name" : "QtInternalTargets"
+	},
+	"id" : "auth_server_autogen_timestamp_deps::@fe01b733371cff195fae",
+	"isGeneratorProvided" : true,
+	"name" : "auth_server_autogen_timestamp_deps",
+	"paths" : 
+	{
+		"build" : "auth_server",
+		"source" : "auth_server"
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}

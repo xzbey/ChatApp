@@ -1,5 +1,5 @@
 # Qt + CMake build-артефакты
-build/
+build/*
 */build/
 *.build/
 *.build-*/
@@ -7,6 +7,10 @@ Desktop_Qt_*_*-Debug/
 Desktop_Qt_*_*-Release/
 *.qmlls.build.ini
 .qtcsettings.cmake
+
+# Рабочая сборка
+!build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/
+!build/Desktop_Qt_6_10_1_MSVC2022_64bit-Release/**
 
 # Автогенерированные Qt-файлы
 moc_*

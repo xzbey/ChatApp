@@ -5,6 +5,8 @@ ApplicationController::ApplicationController(QObject* parent)
 {
     client = new Client(this);
     authService = new AuthService(client, this);
+    chatService = new ChatService(client, this);
+    chatListModel = new ChatListModel(this);
 
     connect(client, &Client::connected, this, &ApplicationController::onConnected);
     connect(client, &Client::disconnected, this, &ApplicationController::onDisconnect);
@@ -15,6 +17,13 @@ ApplicationController::ApplicationController(QObject* parent)
     connect(authService, &AuthService::registrationSuccess, this, &ApplicationController::onRegistrationSuccess);
     connect(authService, &AuthService::registrationFailed, this, &ApplicationController::onRegistrationFailed);
 
+    connect(chatService, &ChatService::chatConnected, this, &ApplicationController::onChatConnected);
+    connect(chatService, &ChatService::chatConnectionFailed, this, &ApplicationController::onChatConnectionFailed);
+
+    connect(chatService, &ChatService::messageReceived, this, &ApplicationController::onMessageReceived);
+    connect(chatService, &ChatService::broadcastReceived, this, &ApplicationController::onBroadcastReceived);
+    connect(chatService, &ChatService::userListReceived, this, &ApplicationController::userListReceived);
+
     //connectToServer(QHostAddress::LocalHost, 50000);
 }
 
@@ -24,8 +33,10 @@ Q_INVOKABLE void ApplicationController::connectToServer(const QString& hostAddre
 }
 
 Q_INVOKABLE void ApplicationController::login(const QString& login, const QString& password) {
+    myLogin = login;
+
     if (!client->isConnected()) {
-        connectToServer(serverData.first.toString(), serverData.second);
+        connectToServer(authServerData.first.toString(), authServerData.second);
 
         connect(client, &Client::connected, this, [this, login, password]() {
             setStatusMsg("Authorization...");
@@ -41,7 +52,7 @@ Q_INVOKABLE void ApplicationController::login(const QString& login, const QStrin
 
 Q_INVOKABLE void ApplicationController::registration(const QString& login, const QString& password) {
     if (!client->isConnected()) {
-        connectToServer(serverData.first.toString(), serverData.second);
+        connectToServer(authServerData.first.toString(), authServerData.second);
 
         connect(client, &Client::connected, this, [this, login, password]() {
             setStatusMsg("Registration...");
@@ -55,6 +66,21 @@ Q_INVOKABLE void ApplicationController::registration(const QString& login, const
     authService->registration(login, password);
 }
 
+Q_INVOKABLE void ApplicationController::sendMessage(const QString& to, const QString& msg) {
+    chatListModel->getMessageModel("private_" + to)->addMessage({myLogin, msg});
+    chatService->sendMessage(to, msg);
+}
+
+Q_INVOKABLE void ApplicationController::sendBroadcast(const QString& msg) {
+    chatListModel->getMessageModel("broadcast")->addMessage({myLogin, msg});
+    chatService->sendBroadcast(msg);
+}
+
+Q_INVOKABLE void ApplicationController::userListRequest() {
+    chatService->userListRequest();
+}
+
+
 QString ApplicationController::getStatusMsg() const {
     return statusMsg;
 }
@@ -63,20 +89,36 @@ bool ApplicationController::isConnected() const {
     return client->isConnected();
 }
 
+ChatListModel* ApplicationController::getChatListModel() const {
+    return chatListModel;
+}
+
+QString ApplicationController::getMyLogin() const {
+    return myLogin;
+}
+
 void ApplicationController::onConnected() {
     setStatusMsg("Connected to server");
     emit isConnectedChanged();
 }
 
 void ApplicationController::onDisconnect() {
+    Utils::log("onDisconnect called, inChat: " + QString(inChat ? "true" : "false"));
     setStatusMsg("Disconnected from server");
+
+    if (inChat) {
+        inChat = false;
+        emit chatDisconnected();
+    }
+    // при повторном коннекте (логин->серв оф->логин) qml замораживается - ну и похуй, анлак
+
     emit isConnectedChanged();
 }
 
 void ApplicationController::onLoginSuccess(const QString& msg) {
     setStatusMsg(msg);
     Utils::log("Successful login. Emit authorization");
-    emit authSuccess();
+    chatService->connectToChatServer(myLogin, chatServerData.first.toString(), chatServerData.second);
 }
 
 void ApplicationController::onLoginFailed(const QString& error) {
@@ -93,10 +135,37 @@ void ApplicationController::onRegistrationFailed(const QString& error) {
 }
 
 void ApplicationController::onError(const QString& error) {
+    Utils::log("onError called, inChat: " + QString(inChat ? "true" : "false"));
     setStatusMsg("Error: " + error);
+    if (inChat) {
+        inChat = false;
+        emit chatDisconnected();
+    }
     emit isConnectedChanged();
 }
 
+void ApplicationController::onChatConnected() {
+    inChat = true;
+    setStatusMsg("Connected to chat");
+    Utils::log("Successful connect to chat server");
+    emit authSuccess();
+}
+
+void ApplicationController::onChatConnectionFailed(const QString& error) {
+    setStatusMsg("Chat connection failed: " + error);
+}
+
+void ApplicationController::onMessageReceived(const QString& from, const QString& msg) {
+    chatListModel->addChat("private_" + from, from);
+    chatListModel->getMessageModel("private_" + from)->addMessage({from, msg});
+
+    emit messageReceived(from, msg);
+}
+
+void ApplicationController::onBroadcastReceived(const QString& from, const QString& msg) {
+    chatListModel->getMessageModel("broadcast")->addMessage({from, msg});
+    emit broadcastReceived(from, msg);
+}
 
 void ApplicationController::setStatusMsg(const QString& msg) {
     if (statusMsg != msg) {
@@ -104,5 +173,5 @@ void ApplicationController::setStatusMsg(const QString& msg) {
         emit statusMsgChanged();
         Utils::log("Status: " + msg);
     }
-    Utils::log("Status are the same");
+    else Utils::log("Status are the same");
 }

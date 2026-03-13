@@ -1,0 +1,767 @@
+[
+    {
+        "classes": [
+            {
+                "className": "Client",
+                "lineNumber": 12,
+                "object": true,
+                "qualifiedClassName": "Client",
+                "signals": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "lineNumber": 26,
+                        "name": "connected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "lineNumber": 27,
+                        "name": "disconnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "response",
+                                "type": "QJsonObject"
+                            }
+                        ],
+                        "index": 2,
+                        "lineNumber": 28,
+                        "name": "responseReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 3,
+                        "lineNumber": 29,
+                        "name": "error0ccurred",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "index": 4,
+                        "lineNumber": 32,
+                        "name": "onConnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 5,
+                        "lineNumber": 33,
+                        "name": "onDisconnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 6,
+                        "lineNumber": 34,
+                        "name": "onReadyRead",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 7,
+                        "lineNumber": 35,
+                        "name": "onError",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "Client.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "ChatListModel",
+                "lineNumber": 11,
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "chatId",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "chatName",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 0,
+                        "lineNumber": 26,
+                        "name": "addChat",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "chatId",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 1,
+                        "lineNumber": 28,
+                        "name": "getMessageModel",
+                        "returnType": "MessageModel*"
+                    }
+                ],
+                "object": true,
+                "qualifiedClassName": "ChatListModel",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QAbstractListModel"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "ChatListModel.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "ChatService",
+                "lineNumber": 9,
+                "object": true,
+                "qualifiedClassName": "ChatService",
+                "signals": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "lineNumber": 22,
+                        "name": "chatConnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 1,
+                        "lineNumber": 23,
+                        "name": "chatConnectionFailed",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "from",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 2,
+                        "lineNumber": 25,
+                        "name": "messageReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "from",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 3,
+                        "lineNumber": 26,
+                        "name": "broadcastReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "users",
+                                "type": "QStringList"
+                            }
+                        ],
+                        "index": 4,
+                        "lineNumber": 27,
+                        "name": "userListReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "success",
+                                "type": "bool"
+                            },
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 5,
+                        "lineNumber": 29,
+                        "name": "systemMessageReceived",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "index": 6,
+                        "lineNumber": 32,
+                        "name": "onConnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "response",
+                                "type": "QJsonObject"
+                            }
+                        ],
+                        "index": 7,
+                        "lineNumber": 33,
+                        "name": "onResponseReceived",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "ChatService.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "MessageModel",
+                "lineNumber": 9,
+                "object": true,
+                "qualifiedClassName": "MessageModel",
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QAbstractListModel"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "MessageModel.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "AuthService",
+                "lineNumber": 9,
+                "object": true,
+                "qualifiedClassName": "AuthService",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 0,
+                        "lineNumber": 19,
+                        "name": "loginSuccess",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 1,
+                        "lineNumber": 20,
+                        "name": "loginFailed",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 2,
+                        "lineNumber": 22,
+                        "name": "registrationSuccess",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 3,
+                        "lineNumber": 23,
+                        "name": "registrationFailed",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "response",
+                                "type": "QJsonObject"
+                            }
+                        ],
+                        "index": 4,
+                        "lineNumber": 26,
+                        "name": "onResponseReceived",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "AuthService.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "ApplicationController",
+                "lineNumber": 10,
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "hostAddress",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "port",
+                                "type": "quint16"
+                            }
+                        ],
+                        "index": 20,
+                        "lineNumber": 21,
+                        "name": "connectToServer",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "login",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "password",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 21,
+                        "lineNumber": 22,
+                        "name": "login",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "login",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "password",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 22,
+                        "lineNumber": 23,
+                        "name": "registration",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "to",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 23,
+                        "lineNumber": 25,
+                        "name": "sendMessage",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 24,
+                        "lineNumber": 26,
+                        "name": "sendBroadcast",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 25,
+                        "lineNumber": 27,
+                        "name": "userListRequest",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 0,
+                        "lineNumber": 13,
+                        "name": "statusMsg",
+                        "notify": "statusMsgChanged",
+                        "read": "getStatusMsg",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 1,
+                        "lineNumber": 14,
+                        "name": "isConnected",
+                        "notify": "isConnectedChanged",
+                        "read": "isConnected",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": false,
+                        "index": 2,
+                        "lineNumber": 15,
+                        "name": "chatListModel",
+                        "read": "getChatListModel",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "ChatListModel*",
+                        "user": false
+                    },
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": false,
+                        "index": 3,
+                        "lineNumber": 16,
+                        "name": "myLogin",
+                        "read": "getMyLogin",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QString",
+                        "user": false
+                    }
+                ],
+                "qualifiedClassName": "ApplicationController",
+                "signals": [
+                    {
+                        "access": "public",
+                        "index": 0,
+                        "lineNumber": 35,
+                        "name": "statusMsgChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 1,
+                        "lineNumber": 36,
+                        "name": "isConnectedChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 2,
+                        "lineNumber": 37,
+                        "name": "authSuccess",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 3,
+                        "lineNumber": 38,
+                        "name": "registerSuccess",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 4,
+                        "lineNumber": 40,
+                        "name": "chatConnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 5,
+                        "lineNumber": 41,
+                        "name": "chatDisconnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "from",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 6,
+                        "lineNumber": 43,
+                        "name": "messageReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "from",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 7,
+                        "lineNumber": 44,
+                        "name": "broadcastReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "users",
+                                "type": "QStringList"
+                            }
+                        ],
+                        "index": 8,
+                        "lineNumber": 45,
+                        "name": "userListReceived",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "index": 9,
+                        "lineNumber": 48,
+                        "name": "onConnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 10,
+                        "lineNumber": 49,
+                        "name": "onDisconnect",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 11,
+                        "lineNumber": 50,
+                        "name": "onLoginSuccess",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 12,
+                        "lineNumber": 51,
+                        "name": "onLoginFailed",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 13,
+                        "lineNumber": 52,
+                        "name": "onRegistrationSuccess",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 14,
+                        "lineNumber": 53,
+                        "name": "onRegistrationFailed",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 15,
+                        "lineNumber": 54,
+                        "name": "onError",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 16,
+                        "lineNumber": 56,
+                        "name": "onChatConnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 17,
+                        "lineNumber": 57,
+                        "name": "onChatConnectionFailed",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "from",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 18,
+                        "lineNumber": 59,
+                        "name": "onMessageReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "from",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "msg",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 19,
+                        "lineNumber": 60,
+                        "name": "onBroadcastReceived",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "ApplicationController.h",
+        "outputRevision": 69
+    }
+]
