@@ -30,6 +30,7 @@ rcc_*.cpp
 *.ilk
 *.pdb
 *.log
+*.bak
 *~
 
 # Qt Creator / Qt настройки
